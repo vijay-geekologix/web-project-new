@@ -1,0 +1,36 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-title class="px-3 xl:px-4 text-[16px] md:text-[18px]">Account Page</ion-title>
+    <ion-buttons slot="end">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div>
+    <ion-router-outlet></ion-router-outlet>
+  </div>
+
+  <ion-tabs>
+    <ion-tab-bar slot="top">
+      <ion-tab-button tab="profile">
+        <ion-icon size="large" name="person-circle-outline"></ion-icon>
+        <ion-label>Profile</ion-label>
+      </ion-tab-button>
+
+      <ion-tab-button tab="change-password">
+        <ion-icon size="large" name="lock-closed-outline"></ion-icon>
+        <ion-label>Change Password</ion-label>
+      </ion-tab-button>
+
+      <ion-tab-button tab="notifications">
+        <ion-icon size="large" name="notifications-outline"></ion-icon>
+        <ion-label>Notifications</ion-label>
+        <ion-badge class="flex justify-center items-center size-[20px] rounded-full text-[14px]! font-bold bg-red-600" color="primary" *ngIf="unreadNotifications()">
+          {{ unreadNotifications() }}
+        </ion-badge>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>
+</ion-content>

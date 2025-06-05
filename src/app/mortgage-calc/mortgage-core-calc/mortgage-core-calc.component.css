@@ -1,0 +1,7 @@
+ion-card {
+  display: block;
+  height: 100%;
+}
+ion-card-header {
+  background-color: var(--ion-color-primary);
+}

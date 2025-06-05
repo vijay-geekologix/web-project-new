@@ -1,0 +1,53 @@
+<ion-card class="ion-no-padding ion-no-margin border border-slate-200 dark:border-slate-800">
+  <div class="ion-text-right" *ngIf="showEdit()">
+    <ion-button
+      size="small"
+      fill="clear"
+      class="edit-btn"
+      (click)="edit.emit(true)"
+    >
+      <ion-text>Edit</ion-text>
+      <ion-icon name="images-outline"></ion-icon>
+    </ion-button>
+  </div>
+
+  <ion-card-content class="gallery-container p-0! lg:p-3!">
+    <div class="relative flex justify-center h-[350px] sm:h-[550px] mb-3">
+      <div
+        class="absolute inset-0 z-0 bg-center bg-cover blur-xs scale-100 opacity-70"
+        [style.backgroundImage]="
+          'url(' + (imagePresented || 'https://placehold.co/1200x300') + ')'
+        "
+      ></div>
+      <img
+        [src]="imagePresented"
+        alt="image"
+        class="w-auto h-full object-cover z-10"
+      />
+    </div>
+
+    <swiper-container
+      pagination="true"
+      pagination-clickable="true"
+      space-between="20"
+      slides-per-view="auto"
+      *ngIf="images()?.length > 1"
+    >
+      <swiper-slide *ngFor="let image of images()" class="swiper">
+        <div
+          class="swipers-image"
+          (click)="setSelected(image || 'assets/images/no-image.jpeg')"
+        >
+          <div
+            [style.backgroundImage]="`url(${image})`"
+            class="rounded-lg w-full h-full bg-cover bg-center"
+          ></div>
+          <div
+            class="cover-img rounded-lg"
+            [ngClass]="{ selected: imagePresented === image }"
+          ></div>
+        </div>
+      </swiper-slide>
+    </swiper-container>
+  </ion-card-content>
+</ion-card>

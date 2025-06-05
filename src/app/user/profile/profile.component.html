@@ -1,0 +1,153 @@
+<ion-content *ngIf="user">
+  <div class="profile-container ion-padding-vertical">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" sizeMd="4" class="px-3 md:pr-1 md:pl-3">
+          <ion-card
+            class="shadow-none h-full border border-slate-200 dark:border-slate-800"
+          >
+            <ion-card-header class="ion-no-padding">
+              <ion-card-title class="ion-padding"></ion-card-title>
+              <div class="profile-img-container">
+                <img [src]="imgUrl" />
+              </div>
+            </ion-card-header>
+
+            <ion-card-content>
+              <input
+                type="file"
+                (change)="onSelectFile($event)"
+                accept="image/*"
+                [hidden]="true"
+                id="image-upload"
+              />
+              <ion-button
+                color="primary"
+                expand="block"
+                (click)="toggleUpload()"
+                class="xl:h-[50px]"
+              >
+                Upload Image
+              </ion-button>
+
+              <app-profile-verified></app-profile-verified>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+
+        <ion-col size="12" sizeMd="8" class="px-3 md:pr-3 md:pl-1 pt-4 md:pt-0">
+          <ion-card
+            class="shadow-none border border-slate-200 dark:border-slate-800 h-full"
+          >
+            <ion-card-header
+              class="px-3 xl:px-4 py-3 xl:py-4 bg-primary flex flex-row items-center justify-between"
+            >
+              <ion-card-title
+                class="text-[16px] md:text-[18px] xl:text-[20px] text-white!"
+              >
+                My Information
+              </ion-card-title>
+              <ion-icon name="person-circle-outline" color="light" size="large"></ion-icon>
+            </ion-card-header>
+
+            <ion-card-content class="pt-4!">
+              <form
+                (submit)="submit()"
+                [formGroup]="userForm"
+                class="form-information flex flex-col gap-5"
+              >
+                <ion-input
+                  labelPlacement="floating"
+                  label="Email *"
+                  fill="outline"
+                  class="text-[18px]!"
+                  type="email"
+                  [readonly]="true"
+                  [value]="user()?.email"
+                ></ion-input>
+
+                <ion-input
+                  labelPlacement="floating"
+                  label="Full Name *"
+                  fill="outline"
+                  class="text-[18px]!"
+                  type="text"
+                  formControlName="fullName"
+                  [value]="user()?.fullName"
+                  errorText="Full Name is too short."
+                ></ion-input>
+
+                <ion-textarea
+                  placeholder="..."
+                  labelPlacement="floating"
+                  label="About Me:"
+                  fill="outline"
+                  class="text-[18px]!"
+                  formControlName="about"
+                  [value]="user()?.about"
+                  errorText="Maximum character limit of 1000 has been reached."
+                ></ion-textarea>
+
+                <ion-input
+                  labelPlacement="floating"
+                  label="Address"
+                  fill="outline"
+                  class="text-[18px]!"
+                  type="text"
+                  formControlName="address"
+                  [value]="user()?.address"
+                  errorText="Maximum character limit of 1000 has been reached."
+                ></ion-input>
+
+                <div class="ion-text-end py-3">
+                  <ion-button type="submit" class="w-[200px] h-[50px]"
+                    >SAVE CHANGES</ion-button
+                  >
+                </div>
+              </form>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size="12" class="mt-8 px-3">
+          <ion-card
+            class="shadow-none border border-slate-200 dark:border-slate-800"
+          >
+            <ion-card-header>
+              <div
+                class="border-b-2 border-primary-tint flex flex-row items-center gap-x-[2px]"
+              >
+                <ion-button
+                  class="tab-button m-0 border-b-0 h-[40px] lg:h-[50px] w-[180px] lg:w-[200px]"
+                  (click)="toggleActivityPropertyTab()"
+                  color="primary"
+                  [fill]="isActivityActive() ? 'solid' : 'clear'"
+                >
+                  My Activities
+                </ion-button>
+                <ion-button
+                  class="tab-button m-0 border-b-0 h-[40px] lg:h-[50px] w-[180px] lg:w-[200px]"
+                  (click)="toggleActivityPropertyTab()"
+                  color="primary"
+                  [fill]="isActivityActive() ? 'clear' : 'solid'"
+                >
+                  My Properties
+                </ion-button>
+              </div>
+            </ion-card-header>
+
+            <ion-card-content class="min-h-[400px] pt-6!">
+              @if (isActivityActive()) {
+              <app-activity-timeline />
+              } @else {
+              <app-user-properties></app-user-properties>
+              }
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

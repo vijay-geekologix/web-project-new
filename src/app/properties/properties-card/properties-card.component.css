@@ -1,0 +1,7 @@
+.tag {
+  color: var(--ion-color-primary-contrast);
+}
+
+.price {
+  color: var(--ion-text-color-step-50);
+}
